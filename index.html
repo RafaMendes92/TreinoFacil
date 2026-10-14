@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TreinoFácil Fit — Academia de Musculação</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="authScreen" class="auth-screen">
+  <div class="auth-box">
+    <h1>💪 TreinoFácil</h1>
+    <p>Entre ou cadastre-se para montar sua ficha</p>
+    <div class="tabs">
+      <button id="tabLogin" class="tab active" onclick="toggleAuth('login')">Login</button>
+      <button id="tabCadastro" class="tab" onclick="toggleAuth('cadastro')">Cadastro</button>
+    </div>
+    <form id="formLogin" onsubmit="event.preventDefault(); login();">
+      <input id="logEmail" type="email" placeholder="E-mail" required>
+      <input id="logSenha" type="password" placeholder="Senha" required>
+      <button class="btn" type="submit">Entrar</button>
+    </form>
+    <form id="formCadastro" style="display:none" onsubmit="event.preventDefault(); cadastrar();">
+      <input id="cadNome" type="text" placeholder="Nome completo">
+      <input id="cadEmail" type="email" placeholder="E-mail">
+      <input id="cadSenha" type="password" placeholder="Senha (mín. 4)">
+      <button class="btn" type="submit">Cadastrar</button>
+    </form>
+  </div>
+</div>
+
+<div id="appScreen" style="display:none">
+  <header class="hero">
+    <div class="hero-content">
+      <h1>💪🏽 TreinoFácil <span>Fit</span></h1>
+      <p class="greeting">Olá, <span id="userName"></span>! Bons treinos 🏋️</p>
+      <button class="btn-logout" onclick="logout()">Sair</button>
+    </div>
+  </header>
+
+  <div class="tabs app-tabs">
+    <button id="tabFicha" class="tab active" onclick="trocarAba('ficha')">📝 Minha Ficha</button>
+    <button id="tabPlano" class="tab" onclick="trocarAba('plano')">🎯 Ficha Personalizada</button>
+  </div>
+
+  <div id="abaPlano" style="display:none">
+    <section class="container" id="quizBox">
+      <div class="quiz-box">
+        <h2 style="color:#9ef01a;margin-bottom:6px">🎯 Vamos montar sua ficha</h2>
+        <p style="color:#9aa3b5;margin-bottom:15px">Responda rápido e geramos uma ficha personalizada para seu objetivo.</p>
+        <form id="formQuiz" class="ficha-form" onsubmit="event.preventDefault(); gerarFichaPersonalizada();">
+          <input id="qIdade" type="number" min="10" max="90" placeholder="Qual sua idade?" required>
+          <input id="qPeso" type="number" min="30" max="300" placeholder="Peso (kg)" required>
+          <input id="qAltura" type="number" min="100" max="250" placeholder="Altura (cm)" required>
+          <select id="qNivel">
+            <option value="">— Nível na academia —</option>
+            <option>Iniciante</option><option>Intermediário</option><option>Avançado</option>
+          </select>
+          <select id="qObjetivo">
+            <option value="">— Objetivo principal —</option>
+            <option>Condicionamento físico e saúde</option>
+            <option>Ganhar força</option>
+            <option>Melhorar resistência</option>
+            <option>Desenvolvimento muscular geral</option>
+          </select>
+          <select id="qDias">
+            <option value="">— Dias por semana —</option>
+            <option value="2">2 dias</option><option value="3">3 dias</option>
+            <option value="4">4 dias</option><option value="5">5 dias</option><option value="6">6 dias</option>
+            <option value="7">7 dias</option>
+          </select>
+          <select id="qTempo">
+            <option value="">— Tempo por treino —</option>
+            <option value="30">30 minutos</option><option value="45">45 minutos</option>
+            <option value="60">60 minutos</option><option value="90">90 minutos</option>
+          </select>
+          <select id="qLesao" onchange="toggleLesaoSub()">
+            <option value="">— Lesão, dor ou restrição? —</option>
+            <option>Não</option><option>Sim</option>
+          </select>
+          <div id="lesaoSub" class="lesao-sub" style="display:none">
+            <p style="color:#9ef01a;margin:8px 0 6px">Onde está a lesão? (marque uma ou mais)</p>
+            <div class="lesao-opcoes">
+              <label><input type="checkbox" value="Tornozelo"> Tornozelo</label>
+              <label><input type="checkbox" value="Joelho"> Joelho</label>
+              <label><input type="checkbox" value="Quadril"> Quadril</label>
+              <label><input type="checkbox" value="Lombar"> Lombar (costas baixas)</label>
+              <label><input type="checkbox" value="Ombro"> Ombro</label>
+              <label><input type="checkbox" value="Cotovelo"> Cotovelo</label>
+              <label><input type="checkbox" value="Punho/Mão"> Punho/Mão</label>
+              <label><input type="checkbox" value="Pescoço"> Pescoço</label>
+            </div>
+            <p class="rest" style="margin:6px 0 0">A ficha será montada evitando os exercícios que sobrecarregam essa região.</p>
+          </div>
+          <select id="qDivisao">
+            <option value="auto">Pode escolher por mim</option>
+            <option value="ab">Treino A/B</option>
+            <option value="abc">Treino ABC</option>
+            <option value="abcd">Treino ABCD</option>
+            <option value="full">Corpo inteiro (Full Body)</option>
+          </select>
+          <button class="btn" type="submit">Montar minha ficha 💪</button>
+        </form>
+      </div>
+    </section>
+    <div id="planoCustomInfo" class="container" style="display:none"></div>
+    <nav class="week-nav" id="weekNav"></nav>
+    <main class="container">
+      <section id="workoutInfo" class="workout-info"></section>
+      <section id="exerciseGrid" class="grid"></section>
+    </main>
+  </div>
+
+  <div id="abaFicha">
+    <main class="container">
+      <h2 style="color:#9ef01a;margin-bottom:15px">📝 Monte sua ficha</h2>
+      <div class="ficha-form">
+        <select id="fxDia" onchange="verificarDia()">
+          <option value="1">Segunda</option><option value="2">Terça</option><option value="3">Quarta</option>
+          <option value="4">Quinta</option><option value="5">Sexta</option><option value="6">Sábado</option>
+          <option value="0">Domingo</option>
+        </select>
+        <div style="display:flex;flex-direction:column;gap:0;background:rgba(35,43,61,.92);border:1px solid rgba(255,255,255,.08);border-radius:12px;box-sizing:border-box;">
+          <label style="padding:10px 14px 6px;font-size:.8rem;color:#aebbd0;letter-spacing:.04em;text-transform:uppercase;">Nome do treino do dia</label>
+          <input id="fxTreino" type="text" placeholder="Digite o nome do treino do dia (ex: Treino A - Peito)" style="width:calc(100% - 20px);margin:6px 10px 10px;box-sizing:border-box;">
+          <span id="fxTreinoInfo" class="rest" style="font-size:.85rem;padding:0 16px 8px"></span>
+        </div>
+        <select id="fxGrupoSel" onchange="filtrarExercicios()">
+          <option value="">— 1. Selecione o grupo —</option>
+        </select>
+        <div id="fxExercicioList" class="ex-check-list"><p class="rest">— 2. Selecione o grupo para ver os exercícios —</p></div>
+        <div id="exSelecionados" class="ex-selecionados"></div>
+        <button class="btn" onclick="adicionarExercicio()">+ Adicionar</button>
+      </div>
+      <div id="fichaList" class="ficha-list"></div>
+    </main>
+  </div>
+</div>
+
+<div class="modal" id="videoModal">
+  <div class="modal-content">
+    <button class="close" id="closeModal">&times;</button>
+    <h3 id="modalTitle"></h3>
+    <div class="video-wrap">
+      <iframe id="videoFrame" src="" title="Vídeo do exercício" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p id="videoFallback" class="video-fallback" style="display:none">⚠️ Não foi possível incorporar o vídeo aqui. Abra direto no YouTube:</p>
+    <a id="ytLink" class="btn yt-link" target="_blank" rel="noopener">▶ Abrir no YouTube</a>
+  </div>
+</div>
+
+<footer>TreinoFácil Fit © 2026 — Treine com foco e segurança 🏋️</footer>
+
+<script src="illus.js"></script>
+<script src="real.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

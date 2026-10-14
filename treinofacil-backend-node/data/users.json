@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": "05d7e1af-1a57-4b76-8bb1-1c193c5938d8",
+      "nome": "Jo�o Teste",
+      "email": "joao@teste.com",
+      "senhaHash": "033cb88a62cba64d5f0eee88aed63c7127e1e3cc952fd964c9417ca2b491f2cf038cf4f07d1899eb5737f80ef6f637f32975d012e07b008df0a4e306c92ce255",
+      "salt": "9910ec54d4222f66e3ef09bed6126ab2",
+      "createdAt": "2026-10-06T12:20:41.063Z"
+    }
+  ]
+}

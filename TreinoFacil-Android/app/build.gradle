@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.treinofacil.app'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.treinofacil.app"
+        minSdk 24
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../treinofacil.jks')
+            storePassword 'treinofacil123'
+            keyAlias 'treinofacil'
+            keyPassword 'treinofacil123'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+}
+
+dependencies {
+}

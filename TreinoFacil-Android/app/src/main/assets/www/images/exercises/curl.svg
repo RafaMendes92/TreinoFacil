@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f6dc69"/><stop offset="1" stop-color="#ff916b"/></linearGradient>
+    <linearGradient id="shirt" x2="0" y2="1"><stop stop-color="#a46bff"/><stop offset="1" stop-color="#6946d8"/></linearGradient>
+  </defs>
+  <rect width="600" height="320" rx="28" fill="url(#bg)"/>
+  <circle cx="490" cy="230" r="74" fill="#fff" opacity=".23"/><circle cx="85" cy="80" r="48" fill="#fff" opacity=".3"/>
+  <path d="M178 274h254" stroke="#ab514e" stroke-width="14" stroke-linecap="round" opacity=".25"/>
+  <path d="M273 164l-19 63m66-61 25 62" fill="none" stroke="#493873" stroke-width="23" stroke-linecap="round"/>
+  <path d="M255 221l-9 41m101-39 11 39" fill="none" stroke="#f3b58b" stroke-width="16" stroke-linecap="round"/>
+  <path d="M237 263l-19 2m142-2 20 2" fill="none" stroke="#493873" stroke-width="13" stroke-linecap="round"/>
+  <path d="M271 108q31-21 62 0l17 58q-45 24-94 0z" fill="url(#shirt)"/>
+  <circle cx="302" cy="83" r="27" fill="#f3b58b"/><path d="M277 80q1-35 35-33 25 2 25 28-18-9-34-6l-19 18z" fill="#523c55"/>
+  <path d="M277 119l-28 21-8 43m91-63 30 22 4 37" fill="none" stroke="#f3b58b" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M241 183h38m-28-10v20m-11-15v10m140-5h38m-28-10v20m-11-15v10" stroke="#473a71" stroke-width="12" stroke-linecap="round"/>
+  <path d="M268 165q44 19 86 0l-8 23q-37 14-72 0z" fill="#35c8bc"/>
+  <path d="M166 169l5 12 13 2-10 9 2 13-10-7-11 7 3-13-10-9 13-2z" fill="#fff" opacity=".85"/>
+  <path d="M434 70l5 12 13 2-10 9 2 13-10-7-11 7 3-13-10-9 13-2z" fill="#fff" opacity=".8"/>
+</svg>
